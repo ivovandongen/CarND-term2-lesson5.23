@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(TEMPLATE)
+project(CarND-term2-lesson5.23)
 
 set(CMAKE_CXX_STANDARD 14)
 
@@ -12,8 +12,8 @@ endif()
 
 
 
-add_executable(Template
+add_executable(RMSE
     ${CMAKE_SOURCE_DIR}/src/main.cpp
 )
 
-target_link_libraries(Template Eigen)
+target_link_libraries(RMSE Eigen)
