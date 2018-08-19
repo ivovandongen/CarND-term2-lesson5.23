@@ -1,5 +1,7 @@
+#include <Eigen>
+#include <Dense>
+
 #include <iostream>
-#include "Dense"
 #include <vector>
 
 using namespace std;
@@ -43,29 +45,31 @@ int main() {
 }
 
 VectorXd CalculateRMSE(const vector<VectorXd> &estimations,
-                       const vector<VectorXd> &ground_truth){
+                       const vector<VectorXd> &ground_truth) {
 
     VectorXd rmse(4);
-    rmse << 0,0,0,0;
-
-    // TODO: YOUR CODE HERE
+    rmse << 0, 0, 0, 0;
 
     // check the validity of the following inputs:
     //  * the estimation vector size should not be zero
     //  * the estimation vector size should equal ground truth vector size
-    // ... your code here
+    if (estimations.empty() || (estimations.size() != ground_truth.size())) {
+        cout << "Estimations don't match the ground truth" << endl;
+        return rmse;
+    }
 
     //accumulate squared residuals
-    for(int i=0; i < estimations.size(); ++i){
-        // ... your code here
-
+    for (int i = 0; i < estimations.size(); ++i) {
+        VectorXd res = estimations[i] - ground_truth[i];
+        res = res.array() * res.array();
+        rmse += res;
     }
 
     //calculate the mean
-    // ... your code here
+    rmse = rmse / estimations.size();
 
     //calculate the squared root
-    // ... your code here
+    rmse = rmse.array().sqrt();
 
     //return the result
     return rmse;
